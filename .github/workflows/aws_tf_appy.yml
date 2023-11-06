@@ -4,18 +4,18 @@ on:
   workflow_call:
     inputs:
       tf_version:
-        description: 'Specifies version of Terraform to use. e.g: 1.1.0 Default=latest.'
+        description: "Specifies version of Terraform to use. e.g: 1.1.0 Default=latest."
         required: false
         type: string
         default: latest
       gh_environment:
-        description: 'Specifies the GitHub deployment environment.'
+        description: "Specifies the GitHub deployment environment."
         required: false
         type: string
         default: null
     secrets:
       cli_config_credentials_token:
-        description: 'cli config credentials token'
+        description: "cli config credentials token"
         required: true
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-      
+
       - name: Terraform Validate
         id: validate
         run: terraform validate
@@ -53,4 +53,8 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply -auto-approve \
+            -var "db_password=$DB_PASSWORD"
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
