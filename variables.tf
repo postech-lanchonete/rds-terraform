@@ -5,3 +5,8 @@ variable "region" {
   default     = "us-east-1"
   description = "AWS region"
 }
+
+variable "db_password" {
+  description = "Database password"
+  type        = string
+}
