@@ -1,6 +1,8 @@
-name: "01-RDS"
+name: "pipeline-rds"
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
