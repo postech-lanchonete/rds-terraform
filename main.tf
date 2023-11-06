@@ -50,11 +50,6 @@ resource "aws_security_group" "rds" {
 resource "aws_db_parameter_group" "lanchonetebairro" {
   name   = "lanchonetebairro"
   family = "mariadb10.6"
-
-  parameter {
-    name  = "log_connections"
-    value = "1"
-  }
 }
 
 resource "aws_db_instance" "lanchonetebairro" {
