@@ -8,4 +8,14 @@ terraform {
       version = ">= 3.20.0"
     }
   }
+
+  backend "remote" {
+      hostname = "app.terraform.io"
+      organization = "lanchonetebairro"
+
+      workspaces {
+        name = "lanchonete-db"
+      }
+    }
+  }
 }
