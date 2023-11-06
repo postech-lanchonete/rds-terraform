@@ -1,10 +1,6 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-provider "aws" {
-  region = "us-east-1"
-}
-
 data "aws_availability_zones" "available" {}
 
 module "vpc" {
