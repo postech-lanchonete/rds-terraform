@@ -45,12 +45,9 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -input=false -out=tfplan > terraform_plan_output.txt 2>&1
+        run: terraform plan -input=false -var "db_password=$DB_PASSWORD"
         env:
-          TF_INPUT: "0"
-          TF_CLI_ARGS: "-auto-approve"
-        continue-on-error: true
-        timeout-minutes: 10
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
