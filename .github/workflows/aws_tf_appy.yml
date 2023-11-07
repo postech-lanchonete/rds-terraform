@@ -52,8 +52,4 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        run: |
-          terraform apply -auto-approve \
-            -var "db_password=$DB_PASSWORD"
-        env:
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: terraform apply -auto-approve
