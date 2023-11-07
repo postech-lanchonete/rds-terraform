@@ -7,7 +7,7 @@ on:
 
 jobs:
   Plan:
-    uses: ./aws_tf_plan.yml
+    uses: ./aws_tf_plan.yml@main
     with:
       gh_environment: dev
     secrets:
@@ -15,7 +15,7 @@ jobs:
 
   Apply:
     needs: Plan
-    uses: ./aws_tf_appy.yml
+    uses: ./aws_tf_appy.yml@main
     with:
       gh_environment: dev
     secrets:
