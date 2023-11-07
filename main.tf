@@ -7,7 +7,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.77.0"
 
-  name                 = "lanchonetebairro"
+  name                 = "lanchonetebairro_db"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   public_subnets       = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
@@ -24,26 +24,19 @@ resource "aws_db_subnet_group" "lanchonetebairro" {
   }
 }
 
-resource "aws_security_group" "rds" {
-  name   = "lanchonetebairro_rds"
+resource "aws_security_group" "maria_db" {
+  name   = "lanchonetebairro_maria_db"
   vpc_id = module.vpc.vpc_id
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = "lanchonetebairro_rds"
+    Name = "lanchonetebairro_maria_db"
   }
 }
 
@@ -61,7 +54,7 @@ resource "aws_db_instance" "lanchonetebairro" {
   username               = "root"
   password               = var.db_password
   db_subnet_group_name   = aws_db_subnet_group.lanchonetebairro.name
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  vpc_security_group_ids = [aws_security_group.maria_db.id]
   parameter_group_name   = aws_db_parameter_group.lanchonetebairro.name
   publicly_accessible    = true
   skip_final_snapshot    = true
