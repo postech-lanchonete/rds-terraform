@@ -15,8 +15,8 @@ module "vpc" {
   enable_dns_support   = true
 }
 
-resource "aws_db_subnet_group" "lanchonetebairro" {
-  name       = "lanchonetebairro"
+resource "aws_db_subnet_group" "lanchonetebairro_db" {
+  name       = "lanchonetebairro_db"
   subnet_ids = module.vpc.public_subnets
 
   tags = {
@@ -53,7 +53,7 @@ resource "aws_db_instance" "lanchonetebairro" {
   engine_version         = "10.6.10"
   username               = "root"
   password               = var.db_password
-  db_subnet_group_name   = aws_db_subnet_group.lanchonetebairro.name
+  db_subnet_group_name   = aws_db_subnet_group.lanchonetebairro_db.name
   vpc_security_group_ids = [aws_security_group.maria_db.id]
   parameter_group_name   = aws_db_parameter_group.lanchonetebairro.name
   publicly_accessible    = true
